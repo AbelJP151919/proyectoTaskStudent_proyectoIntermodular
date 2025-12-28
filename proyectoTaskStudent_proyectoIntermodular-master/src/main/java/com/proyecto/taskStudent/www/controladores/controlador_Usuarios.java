@@ -1,7 +1,9 @@
 package com.proyecto.taskStudent.www.controladores;
 
+import com.proyecto.taskStudent.www.config.EmailService;
 import com.proyecto.taskStudent.www.modelos.usuarios;
 import com.proyecto.taskStudent.www.modelos.usuariosRepo;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+
+
+
 @Controller
 public class controlador_Usuarios{
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private usuariosRepo usuarioRepository;
-
-    @GetMapping("/mostrarFormularioRegistro")
-
-    public String mostrarRegistro() {
-        return "formularioRegistros";
-    }
 
 
 
@@ -29,6 +31,7 @@ public class controlador_Usuarios{
     public String registrarUsuario(
             @RequestParam String nombre,
             @RequestParam String email,
+            @RequestParam String puesto,
             @RequestParam String curso,
             @RequestParam String conn,
             @RequestParam String conn2,
@@ -36,7 +39,7 @@ public class controlador_Usuarios{
 
 
 
-        usuarios usuario = new usuarios(nombre,email,curso,conn,conn2);
+        usuarios usuario = new usuarios(nombre,email,puesto,curso,conn,conn2);
 
         if(usuario.validarCamposVacios()==false) {
             model.addAttribute("mensajeError", "Rellena todo los campos");
@@ -61,7 +64,42 @@ public class controlador_Usuarios{
 
 
         usuarioRepository.save(usuario);
-        return "redirect:/mostrarFormularioRegistro";
+
+        emailService.sendEmail(usuario.getEmail(), usuario.getNombre());
+
+        model.addAttribute("mensaje", "Registro guardado correctamente");
+        return "usuario-creado";
+    }
+
+
+
+    @PostMapping("/iniciar")
+    public String iniciarSesion(
+            @RequestParam String email,
+            @RequestParam String conn,
+            HttpSession session,
+            Model model
+            ){
+        usuarios usuario = usuarioRepository.findByEmailAndConn(email,conn);
+
+
+
+        if (usuario == null) {
+            model.addAttribute("error", "Email o contraseña incorrectos");
+            return "error-registro";
+        }
+        session.setAttribute("usuario", usuario);
+
+
+        if (usuario.getPuesto().equals("Profesor")) {
+            return "redirect:/mostrarPaginaProfesores";
+        }
+        if (usuario.getPuesto().equals("Alumno")) {
+            return "redirect:/mostrarPaginaAlumno";
+        }
+
+        model.addAttribute("mensaje", "Registro guardado correctamente");
+        return "usuario-creado";
 
     }
     }

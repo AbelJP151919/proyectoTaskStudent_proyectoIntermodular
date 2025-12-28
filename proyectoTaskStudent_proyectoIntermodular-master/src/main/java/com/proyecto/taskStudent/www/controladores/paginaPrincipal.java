@@ -12,4 +12,16 @@ public class paginaPrincipal {
         return "paginaPrincipal";
     }
 
+    @GetMapping("/mostrarFormularioRegistro")
+
+    public String mostrarRegistro() {
+        return "formularioRegistros";
+    }
+
+    @GetMapping("/mostrarFormularioInicio")
+    public String mostrarInicio() {
+        return "iniciarSesion";
+    }
+
+
 }

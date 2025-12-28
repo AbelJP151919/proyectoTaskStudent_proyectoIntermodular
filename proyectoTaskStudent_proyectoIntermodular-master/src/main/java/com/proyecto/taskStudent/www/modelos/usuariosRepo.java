@@ -11,5 +11,7 @@ import java.util.List;
 public interface usuariosRepo extends JpaRepository<usuarios, Long> {
     List<usuarios> findByEmail(String email);
 
+    usuarios findByEmailAndConn(String email, String conn);
+
     //Funciones de CRUD
 }

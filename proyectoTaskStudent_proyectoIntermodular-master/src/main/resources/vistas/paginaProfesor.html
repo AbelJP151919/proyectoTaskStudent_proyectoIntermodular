@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Panel del Profesor</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+
+    <style>
+        /* Estilos adicionales sin modificar el CSS original */
+        .dashboard-header {
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .welcome-text h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        .quick-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(1, 1, 254, 0.15);
+            text-decoration: none;
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0101E7;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-description {
+            color: #666666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .recent-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0101E7;
+            margin: 0;
+        }
+
+        .list-group-item {
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            border-left-color: #0101FE;
+            background-color: #f8f9ff;
+        }
+
+        .badge-custom {
+            background: #f8f9ff;
+            color: #0101FE;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quick-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .stat-card {
+                flex: 1;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#" style="color: white;">
+            TaskStudent
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="background: rgba(255, 255, 255, 0.2); border: none;">
+            <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="#" class="nav-link active" style="color: white;">Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" style="color: rgba(255,255,255,0.85);">Mis Clases</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" style="color: rgba(255,255,255,0.85);">Tareas</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" style="color: rgba(255,255,255,0.85);">Calendario</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" style="color: rgba(255,255,255,0.85);">Perfil</a></li>
+                <li class="nav-item"><a href="/" class="nav-link" style="color: rgba(255,255,255,0.85);">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow-1" style="background-color: #F2F0EB;">
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h1>👋 Bienvenido, Profesor</h1>
+                    <p>Aquí tienes un resumen de tu actividad docente</p>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Clases</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Alumnos</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pb-4">
+        <h2 class="mb-4" style="color: #0101E7;">Acciones Rápidas</h2>
+        <div class="action-cards">
+            <a href="#" class="action-card">
+                <div class="action-icon">➕</div>
+                <h3 class="action-title">Crear Tarea</h3>
+                <p class="action-description">Asigna una nueva tarea o ejercicio a tus estudiantes</p>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">📝</div>
+                <h3 class="action-title">Programar Examen</h3>
+                <p class="action-description">Configura un nuevo examen con fecha y detalles</p>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">📊</div>
+                <h3 class="action-title">Ver Calificaciones</h3>
+                <p class="action-description">Consulta el rendimiento de tus estudiantes</p>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">👥</div>
+                <h3 class="action-title">Gestionar Clases</h3>
+                <p class="action-description">Administra tus grupos y estudiantes</p>
+            </a>
+        </div>
+
+        <div class="recent-section">
+            <div class="section-header">
+                <h3 class="section-title">Tareas Recientes</h3>
+                <a href="#" class="btn btn-outline-primary btn-sm">Ver todas</a>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Ejercicios de Matemáticas - Capítulo 5</strong>
+                        <br>
+                        <small class="text-muted">2º ESO A • Creada hace 2 días</small>
+                    </div>
+                    <span class="badge-custom">15 entregas</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Trabajo de Investigación - La Célula</strong>
+                        <br>
+                        <small class="text-muted">3º ESO B • Creada hace 5 días</small>
+                    </div>
+                    <span class="badge-custom">20 entregas</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Lectura y Análisis - Don Quijote</strong>
+                        <br>
+                        <small class="text-muted">4º ESO C • Creada hace 1 semana</small>
+                    </div>
+                    <span class="badge-custom">18 entregas</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="recent-section">
+            <div class="section-header">
+                <h3 class="section-title">Próximos Exámenes</h3>
+                <a href="#" class="btn btn-outline-primary btn-sm">Ver calendario</a>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Examen de Álgebra</strong>
+                        <br>
+                        <small class="text-muted">2º ESO A • 15 de enero, 2025</small>
+                    </div>
+                    <span class="badge bg-warning text-dark">En 3 días</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Prueba de Biología</strong>
+                        <br>
+                        <small class="text-muted">3º ESO B • 20 de enero, 2025</small>
+                    </div>
+                    <span class="badge bg-info">En 8 días</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-light py-4 border-top">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+            <span class="fw-bold text-azul-principal fs-5">TaskStudent</span>
+        </div>
+        <div class="text-muted small">
+            © 2025 TaskStudent. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

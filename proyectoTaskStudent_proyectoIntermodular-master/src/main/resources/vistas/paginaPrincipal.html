@@ -3,42 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskStudent - Página Principal</title>
+    <title>TaskStudent - Organiza tu vida académica</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+
+    <style>
+        /* Estilos adicionales sin modificar el CSS original */
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(1, 1, 254, 0.2);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(1, 1, 254, 0.15);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.75rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0101E7;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            color: #666666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .main-content > h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .lead-text {
+            font-size: 1.25rem;
+            color: #666666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .main-content > h1 {
+                font-size: 2.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">
+        <a class="navbar-brand fw-bold" href="#" style="color: white;">
             TaskStudent
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Tareas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Calendario</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
-            </ul>
         </div>
     </div>
 </header>
 
 <main class="main-container flex-grow-1">
     <div class="main-content">
-        <h1 class="mb-4">Bienvenido a TaskStudent</h1>
-        <p class="mb-4 lead">Tu aplicación para gestionar tareas y exámenes de forma sencilla.</p>
 
-        <div class="d-grid gap-3 d-md-flex justify-content-md-center">
-            <a href="/mostrarFormularioRegistro" class="btn btn-primary btn-lg">Registrarse</a>
-            <a href="#" class="btn btn-outline-primary btn-lg">Iniciar Sesión</a>
+        <h1>Domina tus estudios con TaskStudent</h1>
+
+        <p class="lead-text">
+            Organiza tus tareas, gestiona exámenes y alcanza tus objetivos académicos con la plataforma diseñada especialmente para estudiantes como tú.
+        </p>
+
+        <div class="d-grid gap-3 d-md-flex justify-content-md-center mb-5">
+            <a href="/mostrarFormularioRegistro" class="btn btn-primary btn-lg">Comenzar gratis</a>
+            <a href="/mostrarFormularioInicio" class="btn btn-outline-primary btn-lg">Iniciar Sesión</a>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3 class="feature-title">Gestión de Tareas</h3>
+                <p class="feature-description">Organiza y prioriza todas tus tareas académicas en un solo lugar de forma sencilla</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3 class="feature-title">Calendario Inteligente</h3>
+                <p class="feature-description">Visualiza todos tus exámenes y entregas en un calendario interactivo</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Seguimiento de Progreso</h3>
+                <p class="feature-description">Monitorea tu rendimiento académico y mantente al día con tus objetivos</p>
+            </div>
         </div>
     </div>
 </main>

@@ -75,15 +75,6 @@
             display: block;
         }
 
-        .password-requirements {
-            background: #f8f9ff;
-            border-left: 3px solid #0101FE;
-            padding: 0.75rem 1rem;
-            border-radius: 0 8px 8px 0;
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-        }
-
         .password-requirements ul {
             margin: 0.5rem 0 0 0;
             padding-left: 1.25rem;
@@ -178,17 +169,12 @@
     <div class="registro-wrapper">
         <div class="registro-header">
             <div class="form-icon">👤</div>
-            <h1>Crea tu cuenta</h1>
-            <p>Únete a TaskStudent y comienza a organizar tu vida académica</p>
+            <h1>Inicio de Sesión</h1>
+
         </div>
 
         <div class="form-section">
-            <form action="/registrar" method="POST">
-                <div class="form-label-group">
-                    <label for="nombre" class="form-label fw-bold">Nombre completo</label>
-                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingresa tu nombre completo">
-                </div>
-
+            <form action="/iniciar" method="POST">
                 <div class="form-label-group">
                     <label for="email" class="form-label fw-bold">Correo electrónico</label>
                     <input type="text" name="email" id="email" class="form-control" placeholder="tunombre@iescastelar.es">
@@ -196,53 +182,18 @@
                 </div>
 
                 <div class="form-label-group">
-                    <label for="puesto" class="form-label fw-bold">Tipo de usuario</label>
-                    <select name="puesto" id="puesto" class="form-select">
-                        <option value="">Selecciona una opción</option>
-                        <option value="Alumno">Alumno</option>
-                        <option value="Profesor">Profesor</option>
-                    </select>
-                </div>
-
-                <div class="form-label-group">
-                    <label for="curso" class="form-label fw-bold">Curso académico</label>
-                    <select name="curso" id="curso" class="form-select">
-                        <option value="">Selecciona tu curso</option>
-                        <option value="1ºESO">1º ESO</option>
-                        <option value="2ºESO">2º ESO</option>
-                        <option value="3ºESO">3º ESO</option>
-                        <option value="4ºESO">4º ESO</option>
-                        <option value="1ºBachillerato">1º Bachillerato</option>
-                        <option value="2ºBachillerato">2º Bachillerato</option>
-                        <option value="Formacion Profesional">Formación Profesional</option>
-                    </select>
-                </div>
-
-                <div class="form-label-group">
                     <label for="conn" class="form-label fw-bold">Contraseña</label>
-                    <input type="password" name="conn" id="conn" class="form-control" placeholder="Crea una contraseña segura">
-                    <div class="password-requirements">
-                        <strong>Tu contraseña debe contener:</strong>
-                        <ul>
-                            <li>Mínimo 8 caracteres</li>
-                            <li>Al menos una letra mayúscula</li>
-                            <li>Al menos un número</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="form-label-group">
-                    <label for="conn2" class="form-label fw-bold">Confirmar contraseña</label>
-                    <input type="password" name="conn2" id="conn2" class="form-control" placeholder="Vuelve a escribir tu contraseña">
+                    <input type="password" name="conn" id="conn" class="form-control">
+                    <span class="form-help-text">Escribe tu contraseña</span>
                 </div>
 
                 <div class="d-grid gap-2">
-                    <input type="submit" value="Crear cuenta" class="btn btn-primary btn-lg">
+                    <input type="submit" value="Iniciar Sesion" class="btn btn-primary btn-lg">
                     <a href="/" class="btn btn-outline-primary">Cancelar</a>
                 </div>
 
                 <div class="login-link">
-                    ¿Ya tienes una cuenta? <a href="/mostrarFormularioInicio">Inicia sesión aquí</a>
+                    ¿Aún no tienes cuenta? <a href="/mostrarFormularioRegistro">Regístrate</a>
                 </div>
             </form>
         </div>

@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskStudent - Error en el Registro</title>
+    <title>TaskStudent - Registro Exitoso</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
@@ -67,16 +68,16 @@
             }
         }
 
-        .error-icon-wrapper {
+        .success-icon-wrapper {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #DC3545, #c82333);
+            background: linear-gradient(135deg, #28A745, #20c997);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
             animation: scaleIn 0.5s ease-out 0.2s both;
         }
 
@@ -91,26 +92,26 @@
             }
         }
 
-        .error-icon {
+        .success-icon {
             font-size: 3rem;
             color: white;
-            animation: shake 0.6s ease-out 0.5s both;
+            animation: checkmark 0.6s ease-out 0.5s both;
         }
 
-        @keyframes shake {
-            0%, 100% {
-                transform: translateX(0);
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(-45deg);
             }
-            10%, 30%, 50%, 70%, 90% {
-                transform: translateX(-5px);
+            50% {
+                transform: scale(1.2) rotate(5deg);
             }
-            20%, 40%, 60%, 80% {
-                transform: translateX(5px);
+            100% {
+                transform: scale(1) rotate(0deg);
             }
         }
 
         .modal-content h2 {
-            color: #DC3545;
+            color: #28A745;
             margin-bottom: 1rem;
             font-size: 1.75rem;
             font-weight: 600;
@@ -123,8 +124,8 @@
             line-height: 1.6;
         }
 
-        .btn-error {
-            background: linear-gradient(135deg, #DC3545, #c82333);
+        .btn-success {
+            background: linear-gradient(135deg, #0101FE, #0100BA);
             color: white;
             padding: 0.875rem 2.5rem;
             border: none;
@@ -134,16 +135,16 @@
             font-weight: 600;
             font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 4px 15px rgba(1, 1, 254, 0.3);
             width: 100%;
         }
 
-        .btn-error:hover {
+        .btn-success:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(220, 53, 69, 0.4);
+            box-shadow: 0 6px 25px rgba(1, 1, 254, 0.4);
         }
 
-        .btn-error:active {
+        .btn-success:active {
             transform: translateY(0);
         }
 
@@ -152,6 +153,8 @@
             font-size: 0.875rem;
             color: #999;
         }
+
+
 
         @media (max-width: 576px) {
             .modal-content {
@@ -162,12 +165,12 @@
                 font-size: 1.5rem;
             }
 
-            .error-icon-wrapper {
+            .success-icon-wrapper {
                 width: 70px;
                 height: 70px;
             }
 
-            .error-icon {
+            .success-icon {
                 font-size: 2.5rem;
             }
         }
@@ -176,16 +179,16 @@
 <body>
 <div class="modal-overlay">
     <div class="modal-content">
-        <div class="error-icon-wrapper">
-            <div class="error-icon">✕</div>
+        <div class="success-icon-wrapper">
+            <div class="success-icon">✓</div>
         </div>
 
-        <h2>Error en el registro</h2>
+        <h2>¡Registro exitoso!</h2>
 
-        <p th:text="${mensajeError}">No se pudo completar el registro. Por favor, verifica los datos ingresados e intenta nuevamente.</p>
+        <p th:text="${mensaje}">Tu cuenta ha sido creada correctamente. Ya puedes comenzar a organizar tus tareas y alcanzar tus objetivos académicos.</p>
 
-        <button class="btn-error" onclick="window.location.href='/mostrarFormularioRegistro'">
-            Volver al formulario
+        <button class="btn-success" onclick="window.location.href='/'">
+            Comenzar ahora
         </button>
 
         <p class="close-hint">Presiona ESC o haz clic fuera para cerrar</p>
@@ -196,14 +199,14 @@
     // Cerrar modal al hacer clic fuera
     document.querySelector('.modal-overlay').addEventListener('click', function(e) {
         if (e.target === this) {
-            window.location.href = '/mostrarFormularioRegistro';
+            window.location.href = '/';
         }
     });
 
     // Cerrar modal con tecla Escape
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            window.location.href = '/mostrarFormularioRegistro';
+            window.location.href = '/';
         }
     });
 </script>
