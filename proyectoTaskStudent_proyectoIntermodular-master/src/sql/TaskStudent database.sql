@@ -13,3 +13,5 @@ CREATE TABLE usuarios (
 
 
 select * from usuarios;
+
+delete from usuarios where id="9";

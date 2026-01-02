@@ -190,32 +190,14 @@
                 </div>
 
                 <div class="form-label-group">
+                    <label for="nombreUsuario" class="form-label fw-bold">Nombre de Usuario</label>
+                    <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" placeholder="Ingresa tu nombre de usuario">
+                </div>
+
+                <div class="form-label-group">
                     <label for="email" class="form-label fw-bold">Correo electrónico</label>
                     <input type="text" name="email" id="email" class="form-control" placeholder="tunombre@iescastelar.es">
                     <span class="form-help-text">Usa tu correo institucional</span>
-                </div>
-
-                <div class="form-label-group">
-                    <label for="puesto" class="form-label fw-bold">Tipo de usuario</label>
-                    <select name="puesto" id="puesto" class="form-select">
-                        <option value="">Selecciona una opción</option>
-                        <option value="Alumno">Alumno</option>
-                        <option value="Profesor">Profesor</option>
-                    </select>
-                </div>
-
-                <div class="form-label-group">
-                    <label for="curso" class="form-label fw-bold">Curso académico</label>
-                    <select name="curso" id="curso" class="form-select">
-                        <option value="">Selecciona tu curso</option>
-                        <option value="1ºESO">1º ESO</option>
-                        <option value="2ºESO">2º ESO</option>
-                        <option value="3ºESO">3º ESO</option>
-                        <option value="4ºESO">4º ESO</option>
-                        <option value="1ºBachillerato">1º Bachillerato</option>
-                        <option value="2ºBachillerato">2º Bachillerato</option>
-                        <option value="Formacion Profesional">Formación Profesional</option>
-                    </select>
                 </div>
 
                 <div class="form-label-group">
@@ -235,6 +217,27 @@
                     <label for="conn2" class="form-label fw-bold">Confirmar contraseña</label>
                     <input type="password" name="conn2" id="conn2" class="form-control" placeholder="Vuelve a escribir tu contraseña">
                 </div>
+
+                <div class="form-label-group">
+                    <label for="tipo" class="form-label fw-bold">Tipo de usuario</label>
+                    <select name="tipo" id="tipo" class="form-control">
+                        <option value="alumno">Alumno</option>
+                        <option value="profesor">Profesor</option>
+                    </select>
+                </div>
+
+                <div class="form-label-group" id="campo-curso" style="display:none;">
+                    <label for="curso" class="form-label fw-bold">Curso</label>
+                    <input type="text" name="curso" id="curso" class="form-control" placeholder="Ej: 1º Bachillerato">
+                </div>
+                <div class="form-label-group" id="campo-departamento" style="display:none;">
+                    <label for="departamento" class="form-label fw-bold">Departamento</label>
+                    <input type="text" name="departamento" id="departamento" class="form-control" placeholder="Ej: Matemáticas">
+                </div>
+
+
+
+
 
                 <div class="d-grid gap-2">
                     <input type="submit" value="Crear cuenta" class="btn btn-primary btn-lg">
@@ -262,7 +265,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    const tipoSelect = document.getElementById("tipo");
+    const campoCurso = document.getElementById("campo-curso");
+    const campoDepartamento = document.getElementById("campo-departamento");
 
+    tipoSelect.addEventListener("change", function () {
+        const tipo = this.value;
 
+        campoCurso.style.display = (tipo === "alumno") ? "block" : "none";
+        campoDepartamento.style.display = (tipo === "profesor") ? "block" : "none";
+    });
+</script>
 </body>
 </html>
