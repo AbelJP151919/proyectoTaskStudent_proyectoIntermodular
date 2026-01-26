@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Inicio Exitoso</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #28A745, #20c997);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            animation: scaleIn 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: white;
+            animation: checkmark 0.6s ease-out 0.5s both;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .modal-content h2 {
+            color: #28A745;
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            color: #666666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            color: white;
+            padding: 0.875rem 2.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(1, 1, 254, 0.3);
+            width: 100%;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(1, 1, 254, 0.4);
+        }
+
+        .btn-success:active {
+            transform: translateY(0);
+        }
+
+        .close-hint {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #999;
+        }
+
+
+
+        @media (max-width: 576px) {
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .success-icon-wrapper {
+                width: 70px;
+                height: 70px;
+            }
+
+            .success-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="modal-overlay">
+    <div class="modal-content">
+        <div class="success-icon-wrapper">
+            <div class="success-icon">✓</div>
+        </div>
+
+        <h2>¡Inicio exitoso!</h2>
+
+        <p th:text="${mensaje}">Has iniciado sesion correctamente. Ya puedes comenzar a organizar tus tareas y alcanzar tus objetivos académicos.</p>
+
+        <button class="btn-success" onclick="window.location.href='/'">
+            Comenzar ahora
+        </button>
+
+        <p class="close-hint">Presiona ESC o haz clic fuera para cerrar</p>
+    </div>
+</div>
+
+<script>
+    // Cerrar modal al hacer clic fuera
+    document.querySelector('.modal-overlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            window.location.href = '/';
+        }
+    });
+
+    // Cerrar modal con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            window.location.href = '/';
+        }
+    });
+</script>
+</body>
+</html>

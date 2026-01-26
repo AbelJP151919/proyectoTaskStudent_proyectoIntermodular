@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class controlador_Admin {
+public class ControladorAdmin {
     @GetMapping("/mostrarPaginaAdmin")
     public String redirect() {
         return "redirect:/admin";

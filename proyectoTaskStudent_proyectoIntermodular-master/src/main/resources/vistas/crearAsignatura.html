@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Crear Asignatura</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+
+    <style>
+        .asignatura-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .asignatura-wrapper {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .asignatura-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .asignatura-header h1 {
+            color: #0101E7;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .asignatura-header p {
+            color: #666666;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .form-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(1, 1, 254, 0.2);
+        }
+
+        .form-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-help-text {
+            font-size: 0.875rem;
+            color: #666666;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .error-message {
+            background: #FFEBEE;
+            border-left: 3px solid #DC3545;
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: #DC3545;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .asignatura-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/" style="color: white;">
+            TaskStudent
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                style="background: rgba(255, 255, 255, 0.2); border: none;">
+            <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a href="/mostrarPaginaProfesores" class="nav-link" style="color: rgba(255,255,255,0.85);">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link" style="color: rgba(255,255,255,0.85);">
+                        Cerrar Sesión
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<main class="asignatura-container flex-grow-1">
+
+    <div class="asignatura-wrapper">
+
+        <div class="asignatura-header">
+            <div class="form-icon">📚</div>
+            <h1>Crear Nueva Asignatura</h1>
+            <p>Completa los datos de la asignatura que deseas crear</p>
+        </div>
+
+        <div class="form-section">
+
+            <div th:if="${mensajeError}" class="error-message">
+                <strong>⚠️ Error:</strong> <span th:text="${mensajeError}"></span>
+            </div>
+
+            <form th:action="@{/asignaturas/crear}" method="POST">
+
+                <div class="form-label-group">
+                    <label for="nombre" class="form-label fw-bold">Nombre de la asignatura</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control"
+                           placeholder="Ej: Matemáticas Avanzadas">
+                </div>
+
+                <div class="form-label-group">
+                    <label for="descripcion" class="form-label fw-bold">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" class="form-control" rows="3"
+                              placeholder="Describe brevemente los contenidos de la asignatura"></textarea>
+                    <span class="form-help-text">Incluye información relevante sobre la materia</span>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-label-group">
+                        <label for="codigo" class="form-label fw-bold">Código de asignatura</label>
+                        <input type="text" name="codigo" id="codigo" class="form-control"
+                               placeholder="Ej: MAT-101">
+                        <span class="form-help-text">Código único identificador</span>
+                    </div>
+
+                    <div class="form-label-group">
+                        <label for="aula" class="form-label fw-bold">Aula</label>
+                        <input type="text" name="aula" id="aula" class="form-control"
+                               placeholder="Ej: A-203">
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-label-group">
+                        <label for="fechaInicio" class="form-label fw-bold">Fecha de inicio</label>
+                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
+                    </div>
+
+                    <div class="form-label-group">
+                        <label for="fechaFin" class="form-label fw-bold">Fecha de finalización</label>
+                        <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-label-group">
+                        <label for="horasTotales" class="form-label fw-bold">Horas totales</label>
+                        <input type="number" name="horasTotales" id="horasTotales" class="form-control"
+                               placeholder="120" min="1" required>
+                        <span class="form-help-text">Total de horas lectivas</span>
+                    </div>
+
+                    <div class="form-label-group">
+                        <label for="horario" class="form-label fw-bold">Horario</label>
+                        <input type="text" name="horario" id="horario" class="form-control"
+                               placeholder="Ej: Lun-Mie 10:00-12:00">
+                    </div>
+
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <input type="submit" value="Crear asignatura" class="btn btn-primary btn-lg">
+
+                    <a href="/mostrarPaginaProfesores" class="btn btn-outline-primary">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+
+<footer class="footer bg-light py-4 border-top">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+            <span class="fw-bold text-azul-principal fs-5">TaskStudent</span>
+        </div>
+
+        <div class="text-muted small">
+            © 2025 TaskStudent. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

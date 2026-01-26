@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Entregar Tarea</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+    <style>
+        .entrega-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .entrega-wrapper {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .entrega-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .entrega-header h1 {
+            color: #0101E7;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .entrega-header p {
+            color: #666666;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .tarea-info-box {
+            background: #F3E5F5;
+            border-left: 4px solid #7B1FA2;
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 2rem;
+        }
+
+        .tarea-info-title {
+            font-weight: 600;
+            color: #7B1FA2;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .tarea-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(123, 31, 162, 0.1);
+        }
+
+        .tarea-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .tarea-info-label {
+            color: #666666;
+            font-size: 0.875rem;
+        }
+
+        .tarea-info-value {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .upload-area {
+            border: 3px dashed #7B1FA2;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: #F3E5F5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area:hover {
+            background: #E1BEE7;
+            border-color: #6A1B9A;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: #7B1FA2;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            color: #7B1FA2;
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-hint {
+            color: #666666;
+            font-size: 0.875rem;
+        }
+
+        .file-selected {
+            background: #E8F5E9;
+            border-left: 3px solid #28A745;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .file-selected-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .file-selected-icon {
+            font-size: 2rem;
+        }
+
+        .file-selected-name {
+            font-weight: 600;
+            color: #28A745;
+        }
+
+        .btn-remove-file {
+            background: #FFEBEE;
+            color: #D32F2F;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove-file:hover {
+            background: #D32F2F;
+            color: white;
+        }
+
+        .btn-entregar {
+            background: linear-gradient(135deg, #7B1FA2, #6A1B9A);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.3);
+        }
+
+        .btn-entregar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(123, 31, 162, 0.4);
+        }
+
+        .btn-entregar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .entrega-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+
+            .tarea-info-item {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/" style="color: white;">
+            TaskStudent
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="background: rgba(255, 255, 255, 0.2); border: none;">
+            <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="#" class="nav-link" style="color: rgba(255,255,255,0.85);">Dashboard</a></li>
+                <li class="nav-item"><a href="/alumno/asignaturas" class="nav-link" style="color: rgba(255,255,255,0.85);">Mis Asignaturas</a></li>
+                <li class="nav-item"><a href="/mostrarPerfilAlumno" class="nav-link" style="color: rgba(255,255,255,0.85);">Perfil</a></li>
+                <li class="nav-item"><a href="/" class="nav-link" style="color: rgba(255,255,255,0.85);">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="entrega-container flex-grow-1">
+    <div class="entrega-wrapper">
+        <div class="entrega-header">
+            <div class="form-icon" style="background: linear-gradient(135deg, #7B1FA2, #6A1B9A);">📤</div>
+            <h1>Entregar Tarea</h1>
+            <p>Sube tu trabajo y añade un comentario opcional</p>
+        </div>
+
+        <div class="form-section">
+            <div class="tarea-info-box">
+                <div class="tarea-info-title" th:text="${contenido.titulo}">📝 Ejercicios de Álgebra Lineal</div>
+                <div class="tarea-info-item">
+                    <span class="tarea-info-label">Tipo:</span>
+                    <span class="tarea-info-value">
+                        <span th:if="${contenido.tipo == 'TAREA'}">Tarea</span>
+                        <span th:if="${contenido.tipo == 'EXAMEN'}">Examen</span>
+                        <span th:if="${contenido.tipo == 'APUNTE'}">Apunte</span>
+                        <span th:if="${contenido.tipo == 'RECURSO'}">Recurso</span>
+                    </span>
+                </div>
+                <div class="tarea-info-item" th:if="${contenido.fechaEntrega != null}">
+                    <span class="tarea-info-label">Fecha límite:</span>
+                    <span class="tarea-info-value" th:text="${#temporals.format(contenido.fechaEntrega, 'dd/MM/yyyy')}">15/02/2025</span>
+                </div>
+            </div>
+
+            <div th:if="${error}" class="error-message">
+                <strong>⚠️ Error:</strong> <span th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/entregas/crearEntrega/{idContenido}(idContenido=${contenido.id})}" method="POST" enctype="multipart/form-data" id="formEntrega">
+                <div class="form-label-group">
+                    <label class="form-label fw-bold">Archivo a entregar</label>
+
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('archivo').click()">
+                        <div class="upload-icon">📁</div>
+                        <div class="upload-text">Haz clic para seleccionar un archivo</div>
+                        <div class="upload-hint">o arrastra y suelta aquí</div>
+                    </div>
+
+                    <input
+                            type="file"
+                            name="archivo"
+                            id="archivo"
+                            style="display: none;"
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.zip"
+                            required>
+
+                    <input type="hidden" name="archivoNombre" id="archivoNombre">
+                    <input type="hidden" name="archivoRuta" id="archivoRuta">
+
+                    <div class="file-selected" id="fileSelected" style="display: none;">
+                        <div class="file-selected-info">
+                            <span class="file-selected-icon">📄</span>
+                            <span class="file-selected-name" id="fileName"></span>
+                        </div>
+                        <button type="button" class="btn-remove-file" onclick="removeFile()">✕</button>
+                    </div>
+
+                    <span class="form-help-text">Archivos permitidos: PDF, Word, PowerPoint, imágenes o ZIP (máx. 10MB)</span>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="comentario" class="form-label fw-bold">Comentario (opcional)</label>
+                    <textarea
+                            name="comentario"
+                            id="comentario"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Añade cualquier comentario sobre tu entrega..."></textarea>
+                    <span class="form-help-text">Puedes explicar algo sobre tu trabajo o hacer alguna aclaración</span>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn-entregar" id="btnEntregar" disabled>
+                        Entregar Tarea
+                    </button>
+                    <a th:href="@{/contenido/alumno/{id}(id=${contenido.id})}" class="btn btn-outline-primary">
+                        ← Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-light py-4 border-top">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+            <span class="fw-bold text-azul-principal fs-5">TaskStudent</span>
+        </div>
+        <div class="text-muted small">
+            © 2025 TaskStudent. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const fileInput = document.getElementById('archivo');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileSelected = document.getElementById('fileSelected');
+    const fileName = document.getElementById('fileName');
+    const btnEntregar = document.getElementById('btnEntregar');
+    const archivoNombre = document.getElementById('archivoNombre');
+    const archivoRuta = document.getElementById('archivoRuta');
+
+    fileInput.addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+
+            // Validar tamaño (Maximo 10 MB)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('El archivo es demasiado grande. El tamaño máximo es 10MB.');
+                this.value = '';
+                return;
+            }
+
+            fileName.textContent = file.name;
+            uploadArea.style.display = 'none';
+            fileSelected.style.display = 'flex';
+            btnEntregar.disabled = false;
+
+            archivoNombre.value = file.name;
+            archivoRuta.value = 'uploads/entregas/' + Date.now() + '_' + file.name;
+        }
+    });
+
+    // Eliminar archivo
+    function removeFile() {
+        fileInput.value = '';
+        fileName.textContent = '';
+        uploadArea.style.display = 'block';
+        fileSelected.style.display = 'none';
+        btnEntregar.disabled = true;
+        archivoNombre.value = '';
+        archivoRuta.value = '';
+    }
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.style.background = '#E1BEE7';
+        this.style.borderColor = '#6A1B9A';
+    });
+
+    uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.style.background = '#F3E5F5';
+        this.style.borderColor = '#7B1FA2';
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.style.background = '#F3E5F5';
+        this.style.borderColor = '#7B1FA2';
+
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -4,6 +4,8 @@ package com.proyecto.taskStudent.www.modelos;
 import jakarta.persistence.*;
 
 
+
+//Clase Profesores
 @Entity
 @Table(name = "profesores")
 public class profesores extends usuarios {

@@ -3,12 +3,26 @@ package com.proyecto.taskStudent.www.modelos;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "alumnos")
 public class alumnos extends usuarios {
 
     private String curso;
+
+
+
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "alumnos_asignaturas",
+            joinColumns = @JoinColumn(name = "alumno_id"),
+            inverseJoinColumns = @JoinColumn(name = "asignatura_id")
+    )
+    private List<asignaturas> asignaturas;
 
     public alumnos() {}
 
@@ -19,4 +33,7 @@ public class alumnos extends usuarios {
 
     public String getCurso() { return curso; }
     public void setCurso(String curso) { this.curso = curso; }
+    public List<asignaturas> getAsignaturas() { return asignaturas; }
+    public void setAsignaturas(List<asignaturas> asignaturas) {this.asignaturas = asignaturas;}
+
 }

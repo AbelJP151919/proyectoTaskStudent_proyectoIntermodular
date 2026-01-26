@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Editar Usuario</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+
+    <style>
+        .edit-container {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .edit-wrapper {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .edit-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .edit-header h1 {
+            color: #0101E7;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .edit-header p {
+            color: #666666;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .form-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1976D2, #1565C0);
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+        }
+
+        .form-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-help-text {
+            font-size: 0.875rem;
+            color: #666666;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .info-box {
+            background: #E3F2FD;
+            border-left: 3px solid #1976D2;
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: #1976D2;
+        }
+
+        @media (max-width: 576px) {
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .edit-header h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/" style="color: white;">
+            TaskStudent
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="background: rgba(255, 255, 255, 0.2); border: none;">
+            <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="/admin" class="nav-link" style="color: rgba(255,255,255,0.85);">Volver a Administración</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link" style="color: rgba(255,255,255,0.85);">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="edit-container flex-grow-1">
+    <div class="edit-wrapper">
+        <div class="edit-header">
+            <div class="form-icon">✏️</div>
+            <h1>Editar Usuario</h1>
+            <p>Modifica los datos del usuario</p>
+        </div>
+
+        <div class="form-section">
+            <div class="info-box">
+                <strong>ℹ️ Información:</strong> Los cambios se guardarán inmediatamente al enviar el formulario
+            </div>
+
+            <form th:action="@{/admin/editar/{id}(id=${usuario.id})}" method="post">
+                <div class="form-label-group">
+                    <label for="nombre" class="form-label fw-bold">Nombre completo</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" th:value="${usuario.nombre}" placeholder="Ingresa el nombre completo">
+                </div>
+
+                <div class="form-label-group">
+                    <label for="email" class="form-label fw-bold">Correo electrónico</label>
+                    <input type="text" name="email" id="email" class="form-control" th:value="${usuario.email}" placeholder="correo@ejemplo.com">
+                    <span class="form-help-text">El correo debe ser único en el sistema</span>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="nombreUsuario" class="form-label fw-bold">Nombre de usuario</label>
+                    <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" th:value="${usuario.nombreUsuario}" placeholder="nombre.usuario">
+                    <span class="form-help-text">Se utilizará para iniciar sesión</span>
+                </div>
+                <div class="form-label-group">
+                    <label for="conn" class="form-label fw-bold">Nueva contraseña (opcional)</label>
+                    <input type="password" name="conn" id="conn" class="form-control" placeholder="Dejar en blanco para mantener la actual">
+                    <span class="form-help-text">Solo completa este campo si deseas cambiar la contraseña</span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <input type="submit" value="Guardar cambios" class="btn btn-primary btn-lg">
+                    <a href="/admin" class="btn btn-outline-primary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-light py-4 border-top">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+            <span class="fw-bold text-azul-principal fs-5">TaskStudent</span>
+        </div>
+        <div class="text-muted small">
+            © 2025 TaskStudent. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

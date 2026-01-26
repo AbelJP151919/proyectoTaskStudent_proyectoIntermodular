@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskStudent - Mi Perfil</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/estilosPaginaPrincipal.css">
+
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, #0101FE, #0100BA);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .profile-role {
+            text-align: center;
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        .profile-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0101E7;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #E9ECEF;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666666;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #333333;
+            text-align: right;
+        }
+
+        .action-buttons-profile {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons-profile {
+                flex-direction: column;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 3rem;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .info-value {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #0101FE, #0100BA);">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#" style="color: white;">
+            TaskStudent
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="background: rgba(255, 255, 255, 0.2); border: none;">
+            <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a href="/mostrarPaginaAlumno" class="nav-link" style="color: rgba(255,255,255,0.85);">Dashboard</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link" style="color: rgba(255,255,255,0.85);">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow-1" style="background-color: #F2F0EB;">
+    <div class="profile-header">
+        <div class="container">
+            <div class="profile-avatar">🎓</div>
+            <h1 class="profile-name" th:text="${alumno.nombre}">Nombre del Alumno</h1>
+            <p class="profile-role">Alumno</p>
+        </div>
+    </div>
+
+    <div class="container pb-4">
+        <div class="profile-content">
+            <div class="profile-card">
+                <h2 class="card-title">📋 Información Personal</h2>
+
+                <div class="info-row">
+                    <span class="info-label">Nombre Completo:</span>
+                    <span class="info-value" th:text="${alumno.nombre}">Juan Pérez García</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value" th:text="${alumno.email}">juan.perez@iescastelar.es</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Usuario:</span>
+                    <span class="info-value" th:text="${alumno.nombreUsuario}">juan.perez</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Curso:</span>
+                    <span class="info-value" th:text="${alumno.curso}">2º ESO</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Tipo de Usuario:</span>
+                    <span class="info-value" th:text="${alumno.tipo}">Alumno</span>
+                </div>
+
+                <div class="action-buttons-profile">
+                    <a href="/alumno/editar" class="btn btn-primary flex-fill">✏️ Editar Perfil</a>
+                    <a href="/alumno/confirmarEliminar" class="btn btn-outline-primary flex-fill">🗑️ Eliminar Cuenta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer bg-light py-4 border-top">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex align-items-center mb-2 mb-md-0">
+            <span class="fw-bold text-azul-principal fs-5">TaskStudent</span>
+        </div>
+        <div class="text-muted small">
+            © 2025 TaskStudent. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

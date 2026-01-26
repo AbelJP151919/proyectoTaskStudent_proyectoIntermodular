@@ -1,0 +1,23 @@
+<div class="content-section" th:if="${contenido.tipo == T(com.proyecto.taskStudent.www.modelos.tipoContenido).TAREA}">
+    <h2 class="section-title">📊 Estado de tu entrega</h2>
+
+    <div th:if="${entrega == null}">
+        <p style="color:#b00; font-weight:600;">No has enviado ninguna entrega todavía.</p>
+    </div>
+
+    <div th:if="${entrega != null and entrega.nota == null}">
+        <p style="color:#555;">Tu entrega está enviada y pendiente de corrección.</p>
+    </div>
+
+    <div th:if="${entrega != null and entrega.nota != null}">
+        <p style="font-size:1.2rem; font-weight:700; color:#0a7;">
+            Nota obtenida: <span th:text="${entrega.nota}"></span>
+        </p>
+
+        <p th:if="${entrega.comentario != null}">
+            <strong>Comentario del profesor:</strong>
+            <br>
+            <span th:text="${entrega.comentario}"></span>
+        </p>
+    </div>
+</div>

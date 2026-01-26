@@ -3,11 +3,15 @@ package com.proyecto.taskStudent.www.modelos;
 import jakarta.persistence.*;
 
 
+//Tabla
+
 @Entity
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class usuarios {
 
+
+    //Atributos de la entidad
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +50,6 @@ public class usuarios {
     public String getTipo() {
         return this.getClass().getSimpleName();
     }
-
-
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
